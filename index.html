@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RotorFiles Foundation - Free transformative books and wisdom for global empowerment. A philanthropic organization dedicated to making knowledge accessible to all.">
+    <meta name="keywords" content="free books, wisdom, spiritual growth, leadership, philanthropy, education, global access">
+    <title>RotorFiles Foundation - Free Wisdom for Humanity</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/XqKLKSQV/rotorfiles-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1f36;
+            --secondary: #2d3748;
+            --accent: #d4af37;
+            --accent-light: #f7e8c3;
+            --text: #f8f9fa;
+            --text-light: #a0aec0;
+            --white: #ffffff;
+            --dark: #0f1419;
+            --success: #48bb78;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --radius: 12px;
+        }
+
+        [data-theme="light"] {
+            --primary: #ffffff;
+            --secondary: #f8f9fa;
+            --accent: #d4af37;
+            --accent-light: #f7e8c3;
+            --text: #2d3748;
+            --text-light: #4a5568;
+            --white: #ffffff;
+            --dark: #e2e8f0;
+            --success: #48bb78;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--primary);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.3; margin-bottom: 1rem; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        .btn-primary { background: var(--accent); color: var(--dark); }
+        .btn-primary:hover { background: var(--accent-light); transform: translateY(-3px); box-shadow: var(--shadow); }
+        .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--accent); }
+        .btn-secondary:hover { background: rgba(212, 175, 55, 0.1); transform: translateY(-3px); }
+
+        /* Header */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(26, 31, 54, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; transition: var(--transition); }
+        [data-theme="light"] .header { background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); }
+        .header.scrolled { padding: 0.7rem 0; }
+        .nav { display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 1rem; }
+        .logo-img { width: 60px; height: 60px; border-radius: 15px; object-fit: cover; }
+        .logo-text h1 { font-size: 1.5rem; margin-bottom: 0.2rem; color: var(--white); }
+        .logo-text p { font-size: 0.65rem; letter-spacing: 2px; color: var(--accent); margin: 0; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: 500; transition: var(--transition); }
+        .nav-link:hover { color: var(--accent); }
+        .toggle-controls { display: flex; align-items: center; gap: 0.5rem; margin-left: 2rem; }
+        .toggle-btn { background: transparent; border: 2px solid var(--accent); color: var(--accent); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+        /* Hero Slideshow */
+        .hero-slideshow { position: relative; height: 90vh; min-height: 600px; overflow: hidden; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease; display: flex; align-items: center; }
+        .slide.active { opacity: 1; }
+        .slide::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%); }
+        .slide-content { position: relative; z-index: 2; max-width: 700px; color: white; padding: 2rem; }
+        .slide-content h2 { font-size: 3.5rem; margin-bottom: 1.5rem; }
+        .slide-content p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
+        .slide-badge { display: inline-block; background: rgba(212, 175, 55, 0.2); color: var(--accent); padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.85rem; margin-bottom: 1rem; }
+        .slideshow-controls { position: absolute; bottom: 2rem; left: 0; right: 0; display: flex; justify-content: center; gap: 1rem; z-index: 3; }
+        .slide-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: var(--transition); }
+        .slide-dot.active { background: var(--accent); width: 30px; border-radius: 10px; }
+        .slide-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; z-index: 3; transition: var(--transition); font-size: 1.5rem; }
+        .slide-arrow:hover { background: var(--accent); color: var(--dark); }
+        .slide-arrow.prev { left: 2rem; }
+        .slide-arrow.next { right: 2rem; }
+
+        /* Books Section */
+        .books-section { padding: 6rem 0; background: var(--secondary); }
+        .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+        .book-card { background: var(--primary); border-radius: var(--radius); overflow: hidden; transition: var(--transition); box-shadow: var(--shadow); display: flex; flex-direction: column; }
+        .book-card:hover { transform: translateY(-10px); }
+        .book-cover { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 5rem; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color: var(--dark); }
+        .book-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .book-title { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--white); }
+        .book-author { color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; }
+        .book-description { color: var(--text-light); margin-bottom: 1.5rem; flex-grow: 1; font-size: 0.9rem; }
+
+        /* Benefits Carousel */
+        .benefits-carousel { position: relative; max-width: 900px; margin: 0 auto; overflow: hidden; border-radius: var(--radius); }
+        .carousel-container { overflow: hidden; }
+        .carousel-track { display: flex; transition: transform 0.5s ease; }
+        .benefit-slide { flex: 0 0 100%; padding: 2rem; background: var(--primary); border-radius: var(--radius); text-align: center; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--accent); color: var(--dark); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; }
+        .carousel-prev { left: -20px; }
+        .carousel-next { right: -20px; }
+        .carousel-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--text-light); cursor: pointer; }
+        .dot.active { background: var(--accent); width: 30px; border-radius: 10px; }
+
+        /* About Section */
+        .about-section { padding: 6rem 0; background: var(--primary); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .about-text h3 { font-size: 2.5rem; color: var(--white); }
+        .about-text p { color: var(--text-light); margin-bottom: 1.5rem; }
+        .about-mission { margin: 2rem 0; padding: 2rem; background: rgba(212, 175, 55, 0.1); border-radius: var(--radius); border-left: 4px solid var(--accent); }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .team-member { text-align: center; padding: 1rem; background: rgba(212, 175, 55, 0.05); border-radius: var(--radius); }
+        .team-member i { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+        .about-quote { font-style: italic; color: var(--accent); font-size: 1.2rem; padding: 1.5rem; border-left: 3px solid var(--accent); background: rgba(212, 175, 55, 0.1); border-radius: 0 var(--radius) var(--radius) 0; margin-top: 2rem; }
+
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem; flex-wrap: wrap; }
+        .page-btn { background: var(--primary); border: 1px solid var(--accent); color: var(--text); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
+        .page-btn.active, .page-btn:hover { background: var(--accent); color: var(--dark); }
+
+        /* Footer */
+        .footer { background: var(--dark); padding: 4rem 0 2rem; cursor: pointer; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-column h4 { color: var(--accent); margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .footer-column p, .footer-column a { color: var(--text-light); text-decoration: none; line-height: 2; }
+        .footer-column a:hover { color: var(--accent); }
+        .copy-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 0.2rem 0.6rem; border-radius: 4px; cursor: pointer; margin-left: 0.5rem; font-size: 0.8rem; }
+        .footer-divider { height: 1px; background: rgba(255, 255, 255, 0.1); margin: 1.5rem 0; }
+        
+        /* SECRET ADMIN PANEL - Hidden by default */
+        .secret-admin-panel {
+            display: none;
+            background: var(--secondary);
+            margin: 2rem;
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 2px solid var(--accent);
+            box-shadow: var(--shadow);
+        }
+        .secret-admin-panel.visible {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .admin-header h3 {
+            color: var(--accent);
+            margin: 0;
+        }
+        .admin-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .admin-form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .admin-form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+        .admin-form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+        .admin-form-group input, .admin-form-group select, .admin-form-group textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            background: var(--primary);
+            color: var(--text);
+            font-family: inherit;
+        }
+        .admin-form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .upload-area {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .admin-btn {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        .admin-danger-btn {
+            background: #dc2626;
+            color: white;
+        }
+        .admin-danger-btn:hover {
+            background: #b91c1c;
+        }
+        .book-list-manager {
+            margin-top: 2rem;
+            border-top: 1px solid var(--accent);
+            padding-top: 1.5rem;
+        }
+        .manage-book-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(212, 175, 55, 0.05);
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+        }
+        .secret-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            z-index: 3000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .secret-toast.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .reader-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 2rem; }
+        .reader-modal.active { display: flex; }
+        .reader-content { background: var(--primary); width: 100%; max-width: 900px; height: 90vh; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+        .reader-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; background: var(--secondary); flex-wrap: wrap; gap: 1rem; }
+        .reader-body { flex-grow: 1; padding: 2rem; overflow-y: auto; }
+        
+        .book-search { text-align: center; margin-bottom: 2rem; }
+        #searchInput { width: 80%; max-width: 500px; padding: 12px 20px; border: 2px solid #ddd; border-radius: 8px; background: var(--primary); color: var(--text); }
+        .category-btn { padding: 8px 18px; margin: 5px; border: none; border-radius: 25px; background: var(--primary); color: var(--text); cursor: pointer; }
+        .category-btn.active, .category-btn:hover { background: var(--accent); color: var(--dark); }
+        
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 80px; left: 0; width: 100%; background: var(--primary); flex-direction: column; padding: 2rem; transform: translateY(-100%); opacity: 0; transition: var(--transition); }
+            .nav-links.active { transform: translateY(0); opacity: 1; }
+            .mobile-toggle { display: block; }
+            .about-grid { grid-template-columns: 1fr; }
+            .slide-content h2 { font-size: 2rem; }
+            .slide-arrow { width: 35px; height: 35px; font-size: 1rem; }
+            .secret-admin-panel { margin: 1rem; }
+            .admin-form-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header"><div class="container"><nav class="nav"><a href="#home" class="logo"><img src="https://i.postimg.cc/1tVwCzJf/logo-png.jpg" alt="RotorFiles Foundation" class="logo-img"><div class="logo-text"><h1>RotorFiles Foundation</h1><p>FREE WISDOM FOR ALL</p></div></a><ul class="nav-links"><li><a href="#home" class="nav-link">Home</a></li><li><a href="#books" class="nav-link">Library</a></li><li><a href="#about" class="nav-link">About</a></li><li><a href="#footer" class="nav-link">Support</a></li></ul><div class="toggle-controls"><button class="toggle-btn theme-btn"><i class="fas fa-moon"></i></button></div><button class="mobile-toggle">☰</button></nav></div></header>
+
+    <!-- Hero Slideshow -->
+    <section class="hero-slideshow" id="home">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1600');"><div class="slide-content"><span class="slide-badge"><i class="fas fa-globe"></i> FREE KNOWLEDGE FOR ALL</span><h2>Books That Transform Lives</h2><p>Access a growing library of life-changing books completely free. No barriers. No costs. Just wisdom.</p><a href="#books" class="btn btn-primary"><i class="fas fa-book-open"></i> Start Reading</a></div></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600');"><div class="slide-content"><span class="slide-badge"><i class="fas fa-hand-holding-heart"></i> PHILANTHROPIC MISSION</span><h2>Wisdom Without Walls</h2><p>We believe knowledge should never be locked behind paywalls. Our foundation provides free access to transformative books worldwide.</p><a href="#about" class="btn btn-secondary"><i class="fas fa-heart"></i> Our Mission</a></div></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600');"><div class="slide-content"><span class="slide-badge"><i class="fas fa-users"></i> GLOBAL COMMUNITY</span><h2>Join Thousands of Readers</h2><p>From students to leaders, people worldwide are transforming their lives through our free library.</p><a href="#footer" class="btn btn-primary"><i class="fas fa-share-alt"></i> Support the Cause</a></div></div>
+        <button class="slide-arrow prev" onclick="changeSlide(-1)">❮</button>
+        <button class="slide-arrow next" onclick="changeSlide(1)">❯</button>
+        <div class="slideshow-controls" id="slideDots"></div>
+    </section>
+
+    <!-- SECRET ADMIN PANEL - Triple-click footer to reveal -->
+    <div id="secretAdminPanel" class="secret-admin-panel">
+        <div class="admin-header">
+            <h3><i class="fas fa-crown"></i> 🔐 RotorFiles Admin Manager</h3>
+            <span class="admin-badge"><i class="fas fa-shield-alt"></i> Secret Access Only</span>
+        </div>
+        
+        <h4><i class="fas fa-plus-circle"></i> Add New Book</h4>
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label>Book Title *</label>
+                <input type="text" id="adminBookTitle" placeholder="e.g., The Power of Now">
+            </div>
+            <div class="admin-form-group">
+                <label>Author *</label>
+                <input type="text" id="adminBookAuthor" placeholder="e.g., Eckhart Tolle">
+            </div>
+            <div class="admin-form-group">
+                <label>Category *</label>
+                <select id="adminBookCategory">
+                    <option value="wisdom">Wisdom</option>
+                    <option value="power">Power</option>
+                    <option value="money">Money</option>
+                    <option value="love">Love</option>
+                    <option value="self-help">Self Help</option>
+                </select>
+            </div>
+        </div>
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label>Cover Icon (emoji)</label>
+                <input type="text" id="adminBookCover" placeholder="e.g., 📖, 🧠, 💡" value="📚">
+            </div>
+            <div class="admin-form-group">
+                <label>Description</label>
+                <textarea id="adminBookDesc" placeholder="Brief description of the book..."></textarea>
+            </div>
+        </div>
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label>Book Content (HTML supported)</label>
+                <textarea id="adminBookContent" placeholder="<h2>Chapter 1</h2><p>Book content goes here...</p>"></textarea>
+            </div>
+        </div>
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label>PDF Link (optional)</label>
+                <input type="text" id="adminBookPdf" placeholder="https://example.com/book.pdf">
+            </div>
+            <div class="admin-form-group">
+                <label>&nbsp;</label>
+                <button class="admin-btn" onclick="addCustomBook()"><i class="fas fa-save"></i> Add Book to Library</button>
+            </div>
+        </div>
+        
+        <div class="book-list-manager">
+            <h4><i class="fas fa-list"></i> Manage Custom Books</h4>
+            <div id="customBooksList"></div>
+            <button class="admin-btn admin-danger-btn" onclick="resetCustomBooks()" style="margin-top: 1rem;"><i class="fas fa-trash-alt"></i> Delete All Custom Books</button>
+        </div>
+    </div>
+
+    <!-- Books Section -->
+    <section class="books-section" id="books"><div class="container"><div class="section-header"><span class="section-badge"><i class="fas fa-book-open"></i> FREE DIGITAL LIBRARY</span><h3>Transformative Books</h3><p>Curated wisdom for personal growth, spiritual development, and success</p></div>
+    <div class="book-search"><input type="text" id="searchInput" placeholder="🔍 Search books by title, author, or topic..." /></div>
+    <div class="book-categories" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:2rem;"><button class="category-btn active" data-category="all">All</button><button class="category-btn" data-category="wisdom">Wisdom</button><button class="category-btn" data-category="power">Power</button><button class="category-btn" data-category="money">Money</button><button class="category-btn" data-category="love">Love</button><button class="category-btn" data-category="self-help">Self Help</button></div>
+    <div class="books-grid" id="booksGrid"></div><div class="pagination" id="pagination"></div></div></section>
+
+    <!-- Benefits Carousel -->
+    <section style="padding: 4rem 0; background: var(--secondary);"><div class="container"><div class="section-header"><span class="section-badge">WHY READING MATTERS</span><h3>The Transformative Power of Reading</h3><p>Discover how regular reading transforms minds, relationships, and communities</p></div>
+    <div class="benefits-carousel"><button class="carousel-btn carousel-prev"><i class="fas fa-chevron-left"></i></button><div class="carousel-container"><div class="carousel-track" id="carouselTrack"></div></div><button class="carousel-btn carousel-next"><i class="fas fa-chevron-right"></i></button><div class="carousel-dots" id="carouselDots"></div></div></div></section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about"><div class="container"><div class="about-grid"><div class="about-text"><h3>RotorFiles Foundation</h3><h4 style="color: var(--accent); margin-bottom: 1rem;">Free Knowledge. Global Impact.</h4><p>A philanthropic organization dedicated to making transformative wisdom accessible to everyone, regardless of geographic or financial barriers.</p><div class="about-mission"><h4 style="color: var(--accent);"><i class="fas fa-bullseye"></i> Our Mission</h4><p>We believe knowledge is a fundamental right, not a luxury. Our foundation removes barriers to wisdom by providing free access to life-changing books, supporting authors through community engagement rather than paywalls.</p><div style="background: rgba(212,175,55,0.15); padding: 1.5rem; border-radius: var(--radius); margin: 1.5rem 0;"><h5 style="color: var(--accent);"><i class="fas fa-users"></i> Our Team</h5><div class="team-grid"><div class="team-member"><i class="fas fa-book-reader"></i><p><strong>Editorial Board</strong><br>Content Review</p></div><div class="team-member"><i class="fas fa-globe"></i><p><strong>Global Outreach</strong><br>Community Partners</p></div><div class="team-member"><i class="fas fa-hand-holding-heart"></i><p><strong>Volunteers</strong><br>Proofreaders & Curators</p></div><div class="team-member"><i class="fas fa-chalkboard-user"></i><p><strong>Education Team</strong><br>Learning Resources</p></div></div></div><p>Our vision: A world where every person has free access to the tools they need for spiritual, personal, and professional growth.</p></div><div class="about-quote">"Every story deserves to be told. Every person deserves access to wisdom. Every community grows when knowledge is shared freely."</div></div><div class="about-image"><img src="https://i.postimg.cc/wj1GPr1h/Rotor-Files-Library-look.png" alt="RotorFiles Library Vision" style="width:100%; border-radius:var(--radius); margin-bottom:1.5rem;"><img src="https://i.postimg.cc/FFdCJ8BZ/Emmanuel-Brayson-Mushi.png" alt="Founder" style="width:100%; border-radius:var(--radius);"><div style="text-align:center; margin-top:1.5rem;"><a href="#footer" class="btn btn-primary"><i class="fas fa-hands-helping"></i> Support Our Mission</a></div></div></div></div></section>
+
+    <!-- Footer with TRIPLE-CLICK SECRET -->
+    <footer class="footer" id="footer"><div class="container"><div class="footer-grid"><div class="footer-column"><img src="https://i.postimg.cc/1tVwCzJf/logo-png.jpg" alt="RotorFiles Foundation" style="width: 60px; border-radius: 15px; margin-bottom: 1rem;"><h3 style="color: var(--accent);">RotorFiles Foundation</h3><p>Free Wisdom for Humanity</p><p style="font-size: 0.9rem; margin-top: 1rem;">"Knowledge shared freely lifts everyone"</p></div><div class="footer-column"><h4><i class="fas fa-donate"></i> Support Free Knowledge</h4><p><strong>International Donations</strong><br>TCB Bank: 172209015755 <button class="copy-btn" data-text="172209015755">Copy</button></p><a href="https://www.paypal.com/donate" target="_blank" class="btn btn-primary" style="margin: 0.5rem 0; display: inline-block;">Donate via PayPal</a><p style="margin-top: 1rem;"><strong>Tanzania Mobile Money</strong><br>Foundation Account<br>Mixx by YAS: +255 650 222 824 <button class="copy-btn" data-text="+255650222824">Copy</button></p><button class="btn btn-secondary" style="margin-top: 0.5rem;" onclick="shareWebsite()"><i class="fas fa-share-alt"></i> Share This Resource</button></div><div class="footer-column"><h4><i class="fas fa-address-card"></i> Connect</h4><p><i class="fas fa-phone"></i> <a href="tel:+255650222824">+255 650 222 824</a></p><p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/255610222824" target="_blank">+255 610 222 824</a></p><p><i class="fas fa-envelope"></i> <a href="mailto:emmanuelbrayson24@gmail.com">foundation@rotorfiles.org</a></p></div><div class="footer-column"><h4>Quick Links</h4><ul style="list-style:none;"><li><a href="#home">Home</a></li><li><a href="#books">Free Library</a></li><li><a href="#about">Our Mission</a></li><li><a href="#footer">Support</a></li></ul><div style="margin-top: 1rem;"><p><strong>Partner With Us</strong><br>Proofreaders, translators, educators welcome</p><a href="mailto:emmanuelbrayson24@gmail.com" class="btn btn-primary" style="margin-top: 0.5rem;">Join Our Team</a></div></div></div><div class="footer-divider"></div><div class="footer-bottom" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;"><p>RotorFiles Foundation — Philanthropic Organization</p><p>© 2025 RotorFiles Foundation. Free Knowledge for All.</p><p>Made with ❤️ for global education</p></div></div></footer>
+
+    <div class="reader-modal" id="readerModal"><div class="reader-content"><div class="reader-header"><h3 id="readerTitle">Book Title</h3><div class="reader-actions"><a href="#" class="btn btn-primary" id="readerPdfLink" target="_blank"><i class="fas fa-download"></i> Free Download</a><button class="btn btn-secondary" onclick="closeReader()"><i class="fas fa-times"></i> Close</button></div></div><div class="reader-body" id="readerBody"></div></div></div>
+    <div class="secret-toast" id="secretToast"><i class="fas fa-check-circle"></i><span id="toastMessage">Copied!</span></div>
+
+    <script>
+        // Default books
+        let defaultBooks = [
+            { id:1, title:"Your Life as a Car But Meant to Fly", author:"RotorFiles Editors", desc:"A profound exploration of life's journey and spiritual progression.", cover:"🚗", category:"wisdom", pdf:"#", content:"<h2>Introduction</h2><p>Life is often compared to a journey...</p>" },
+            { id:2, title:"RACE TRACKS", author:"RotorFiles Editors", desc:"Apply the laws of racing to win at life.", cover:"🏁", category:"self-help", pdf:"#", content:"<h2>Monza Principle</h2><p>Speed with control...</p>" },
+            { id:3, title:"HEATHENICAL LOVE", author:"RotorFiles Editors", desc:"Breaking free from disbelief into transformative love.", cover:"💪", category:"love", pdf:"#", content:"<h2>True Love</h2><p>Love as a transformative force...</p>" },
+            { id:4, title:"Think and Grow Rich", author:"Napoleon Hill", desc:"13 steps to riches and mind power.", cover:"💰", category:"money", pdf:"#", content:"<h2>The Power of Desire</h2><p>Whatever the mind can conceive and believe, it can achieve.</p>" },
+            { id:5, title:"The 48 Laws of Power", author:"Robert Greene", desc:"Master power dynamics and human behavior.", cover:"👑", category:"power", pdf:"#", content:"<h2>Law 1: Never Outshine the Master</h2><p>Always make those above you feel superior.</p>" },
+            { id:6, title:"Atomic Habits", author:"James Clear", desc:"Tiny changes, remarkable results.", cover:"⚡", category:"self-help", pdf:"#", content:"<h2>The 1% Rule</h2><p>Small habits compound into extraordinary results.</p>" }
+        ];
+        
+        // Load custom books from localStorage
+        let customBooks = JSON.parse(localStorage.getItem("rotorfiles_custom_books")) || [];
+        
+        function getAllBooks() {
+            return [...defaultBooks, ...customBooks];
+        }
+        
+        let currentPage = 1, currentFilter = "all", currentSearch = "";
+        const booksPerPage = 6;
+        
+        function renderBooks() {
+            let allBooks = getAllBooks();
+            let filtered = allBooks.filter(b => (currentFilter === "all" || b.category === currentFilter) && (b.title.toLowerCase().includes(currentSearch) || b.author.toLowerCase().includes(currentSearch)));
+            const totalPages = Math.ceil(filtered.length / booksPerPage);
+            const start = (currentPage-1)*booksPerPage;
+            const pageBooks = filtered.slice(start, start+booksPerPage);
+            const grid = document.getElementById("booksGrid");
+            if(pageBooks.length===0){ grid.innerHTML="<p style='text-align:center;'>No books found.</p>"; document.getElementById("pagination").innerHTML=""; return; }
+            grid.innerHTML = pageBooks.map(b => `<article class="book-card"><div class="book-cover">${b.cover || '📚'}</div><div class="book-content"><h4 class="book-title">${escapeHtml(b.title)}</h4><p class="book-author">${escapeHtml(b.author)}</p><p class="book-description">${escapeHtml(b.desc)}</p><button class="btn btn-read" onclick='openBook(${b.id})'><i class="fas fa-eye"></i> Read Free</button></div></article>`).join("");
+            let pagesHtml = `<button class="page-btn" onclick="changePage(${currentPage-1})" ${currentPage===1?"disabled":""}>‹</button>`;
+            for(let i=1;i<=Math.min(totalPages,5);i++) pagesHtml += `<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;
+            if(totalPages>5) pagesHtml += `<span>...</span><button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
+            pagesHtml += `<button class="page-btn" onclick="changePage(${currentPage+1})" ${currentPage===totalPages?"disabled":""}>›</button>`;
+            document.getElementById("pagination").innerHTML = pagesHtml;
+        }
+        
+        function escapeHtml(str) { return str?.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }) || ''; }
+        
+        function changePage(p){ if(p<1)return; currentPage=p; renderBooks(); window.scrollTo({top:document.getElementById("books").offsetTop-100,behavior:"smooth"}); }
+        
+        document.getElementById("searchInput").addEventListener("input",e=>{ currentSearch=e.target.value.toLowerCase(); currentPage=1; renderBooks(); });
+        document.querySelectorAll(".category-btn").forEach(btn=>{ btn.addEventListener("click",()=>{ document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentFilter=btn.dataset.category; currentPage=1; renderBooks(); }); });
+        
+        // Benefits carousel
+        const benefits = [
+            { icon:"🧠", title:"Mental Expansion", text:"Reading stimulates neuroplasticity, creating new neural pathways." },
+            { icon:"💡", title:"Wisdom Accumulation", text:"Books compress decades of experience into hours of reading." },
+            { icon:"🛡️", title:"Emotional Resilience", text:"Builds emotional intelligence and empathy through diverse perspectives." },
+            { icon:"🚀", title:"Career Acceleration", text:"Readers are 122% more likely to be promoted." },
+            { icon:"❤️", title:"Relationship Mastery", text:"Understanding human psychology improves all relationships." },
+            { icon:"🌅", title:"Purpose Discovery", text:"Helps clarify values and discover meaningful life paths." }
+        ];
+        let carouselIndex=0;
+        function renderCarousel(){ const track=document.getElementById("carouselTrack"); track.innerHTML=benefits.map(b=>`<div class="benefit-slide"><div style="font-size:4rem;">${b.icon}</div><h4 style="color:var(--accent);">${b.title}</h4><p style="color:var(--text-light);">${b.text}</p></div>`).join(""); const dotsDiv=document.getElementById("carouselDots"); dotsDiv.innerHTML=benefits.map((_,i)=>`<div class="dot ${i===carouselIndex?'active':''}" onclick="goToSlide(${i})"></div>`).join(""); track.style.transform=`translateX(-${carouselIndex*100}%)`; }
+        function goToSlide(i){ carouselIndex=i; renderCarousel(); }
+        function nextSlide(){ carouselIndex=(carouselIndex+1)%benefits.length; renderCarousel(); }
+        function prevSlide(){ carouselIndex=(carouselIndex-1+benefits.length)%benefits.length; renderCarousel(); }
+        
+        // Book reading
+        function openBook(id){ 
+            const allBooks = getAllBooks();
+            const book = allBooks.find(b=>b.id===id); 
+            if(!book)return; 
+            document.getElementById("readerTitle").innerText=book.title; 
+            document.getElementById("readerBody").innerHTML=book.content||`<h2>${book.title}</h2><p>Free access to this book is available through our foundation.</p>`; 
+            const pdfLink = document.getElementById("readerPdfLink");
+            pdfLink.href = book.pdf || "#";
+            document.getElementById("readerModal").classList.add("active"); 
+            document.body.style.overflow="hidden"; 
+        }
+        function closeReader(){ document.getElementById("readerModal").classList.remove("active"); document.body.style.overflow="auto"; }
+        function shareWebsite(){ if(navigator.share) navigator.share({title:"RotorFiles Foundation",url:window.location.href}); else navigator.clipboard.writeText(window.location.href).then(()=>showSecretToast("Link copied!")); }
+        function showSecretToast(msg){ const t=document.getElementById("secretToast"); document.getElementById("toastMessage").innerText=msg; t.classList.add("active"); setTimeout(()=>t.classList.remove("active"),3000); }
+        document.querySelectorAll(".copy-btn").forEach(b=>b.addEventListener("click",()=>{ navigator.clipboard.writeText(b.dataset.text); showSecretToast("Copied!"); }));
+        
+        // ----- SECRET ADMIN FUNCTIONS (Triple-click footer) -----
+        function addCustomBook() {
+            const title = document.getElementById("adminBookTitle").value.trim();
+            const author = document.getElementById("adminBookAuthor").value.trim();
+            const category = document.getElementById("adminBookCategory").value;
+            const cover = document.getElementById("adminBookCover").value.trim() || "📚";
+            const desc = document.getElementById("adminBookDesc").value.trim();
+            const content = document.getElementById("adminBookContent").value.trim();
+            const pdf = document.getElementById("adminBookPdf").value.trim();
+            
+            if(!title || !author) {
+                showSecretToast("❌ Please enter at least Title and Author");
+                return;
+            }
+            
+            const allExisting = getAllBooks();
+            let maxId = allExisting.length > 0 ? Math.max(...allExisting.map(b => b.id)) : 0;
+            const newId = maxId + 1;
+            
+            const newBook = {
+                id: newId,
+                title: title,
+                author: author,
+                desc: desc || "A transformative book from RotorFiles Foundation.",
+                cover: cover,
+                category: category,
+                pdf: pdf || "#",
+                content: content || `<h2>${title}</h2><p>This book is now available for free through RotorFiles Foundation.</p>`
+            };
+            
+            customBooks.push(newBook);
+            localStorage.setItem("rotorfiles_custom_books", JSON.stringify(customBooks));
+            
+            // Clear form
+            document.getElementById("adminBookTitle").value = "";
+            document.getElementById("adminBookAuthor").value = "";
+            document.getElementById("adminBookDesc").value = "";
+            document.getElementById("adminBookContent").value = "";
+            document.getElementById("adminBookPdf").value = "";
+            document.getElementById("adminBookCover").value = "📚";
+            
+            renderBooks();
+            renderCustomBooksList();
+            showSecretToast(`✨ "${title}" added to library!`);
+        }
+        
+        function deleteCustomBook(bookId) {
+            customBooks = customBooks.filter(b => b.id !== bookId);
+            localStorage.setItem("rotorfiles_custom_books", JSON.stringify(customBooks));
+            renderBooks();
+            renderCustomBooksList();
+            showSecretToast("🗑️ Book removed");
+        }
+        
+        function renderCustomBooksList() {
+            const container = document.getElementById("customBooksList");
+            if(!container) return;
+            if(customBooks.length === 0) {
+                container.innerHTML = "<p style='color: var(--text-light);'>No custom books added yet.</p>";
+                return;
+            }
+            container.innerHTML = customBooks.map(book => `
+                <div class="manage-book-item">
+                    <div><strong>${escapeHtml(book.title)}</strong><br><small>${escapeHtml(book.author)}</small></div>
+                    <button class="admin-btn" style="background:#dc2626; padding:0.3rem 1rem;" onclick="deleteCustomBook(${book.id})"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            `).join("");
+        }
+        
+        function resetCustomBooks() {
+            if(confirm("⚠️ WARNING: This will delete ALL custom books you've added. Default books will remain. Are you sure?")) {
+                customBooks = [];
+                localStorage.removeItem("rotorfiles_custom_books");
+                renderBooks();
+                renderCustomBooksList();
+                showSecretToast("All custom books deleted.");
+            }
+        }
+        
+        // Slideshow
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        function showSlide(n){ slideIndex = (n + slides.length) % slides.length; slides.forEach((s,i)=>s.classList.toggle('active',i===slideIndex)); document.querySelectorAll('.slide-dot').forEach((d,i)=>d.classList.toggle('active',i===slideIndex)); }
+        function changeSlide(d){ showSlide(slideIndex + d); }
+        function initSlideshow(){ const dotsDiv = document.getElementById('slideDots'); dotsDiv.innerHTML = slides.map((_,i)=>`<div class="slide-dot ${i===0?'active':''}" onclick="showSlide(${i})"></div>`).join(''); setInterval(()=>{ changeSlide(1); }, 6000); }
+        
+        // Theme
+        function initTheme(){ const saved=localStorage.getItem("theme")||"dark"; document.documentElement.setAttribute("data-theme",saved); document.querySelector(".theme-btn i").className=saved==="dark"?"fas fa-moon":"fas fa-sun"; document.querySelector(".theme-btn").addEventListener("click",()=>{ const curr=document.documentElement.getAttribute("data-theme"); const next=curr==="dark"?"light":"dark"; document.documentElement.setAttribute("data-theme",next); localStorage.setItem("theme",next); document.querySelector(".theme-btn i").className=next==="dark"?"fas fa-moon":"fas fa-sun"; }); }
+        function initMobile(){ document.querySelector(".mobile-toggle").addEventListener("click",()=>{ document.querySelector(".nav-links").classList.toggle("active"); }); }
+        
+        // ----- TRIPLE-CLICK SECRET on FOOTER (Like NEMA) -----
+        let footerClickCount = 0;
+        let footerClickTimer = null;
+        const footerElement = document.getElementById("footer");
+        const adminPanel = document.getElementById("secretAdminPanel");
+        
+        function revealAdminPanel() {
+            if(adminPanel && !adminPanel.classList.contains("visible")) {
+                adminPanel.classList.add("visible");
+                renderCustomBooksList();
+                showSecretToast("🔓 Admin Panel Unlocked! You can now add books.");
+                // Auto-scroll to admin panel
+                adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+            } else if(adminPanel && adminPanel.classList.contains("visible")) {
+                adminPanel.classList.remove("visible");
+                showSecretToast("🔒 Admin Panel Hidden.");
+            }
+        }
+        
+        if(footerElement) {
+            footerElement.addEventListener("click", (e) => {
+                // Don't trigger if clicking on copy buttons or links inside footer
+                if(e.target.closest('.copy-btn') || e.target.closest('a')) return;
+                
+                footerClickCount++;
+                if(footerClickTimer) clearTimeout(footerClickTimer);
+                footerClickTimer = setTimeout(() => {
+                    if(footerClickCount === 3) {
+                        revealAdminPanel();
+                    }
+                    footerClickCount = 0;
+                }, 600);
+            });
+        }
+        
+        document.addEventListener("DOMContentLoaded",()=>{ 
+            initTheme(); 
+            initMobile(); 
+            renderBooks(); 
+            renderCarousel(); 
+            initSlideshow(); 
+            setInterval(nextSlide,7000);
+            renderCustomBooksList();
+        });
+        
+        window.openBook=openBook; window.closeReader=closeReader; window.changePage=changePage; 
+        window.goToSlide=goToSlide; window.showSlide=showSlide; window.changeSlide=changeSlide; 
+        window.shareWebsite=shareWebsite; window.addCustomBook=addCustomBook; 
+        window.deleteCustomBook=deleteCustomBook; window.resetCustomBooks=resetCustomBooks;
+        document.querySelector(".carousel-prev").onclick=prevSlide; document.querySelector(".carousel-next").onclick=nextSlide;
+    </script>
+</body>
+</html>

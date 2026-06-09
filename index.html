@@ -408,16 +408,24 @@
     <div class="reader-modal" id="readerModal"><div class="reader-content"><div class="reader-header"><h3 id="readerTitle">Book Title</h3><div class="reader-actions"><a href="#" class="btn btn-primary" id="readerPdfLink" target="_blank"><i class="fas fa-download"></i> Free Download</a><button class="btn btn-secondary" onclick="closeReader()"><i class="fas fa-times"></i> Close</button></div></div><div class="reader-body" id="readerBody"></div></div></div>
     <div class="secret-toast" id="secretToast"><i class="fas fa-check-circle"></i><span id="toastMessage">Copied!</span></div>
 
-    <script>
-        // Default books
-        let defaultBooks = [
-            { id:1, title:"Your Life as a Car But Meant to Fly", author:"RotorFiles Editors", desc:"A profound exploration of life's journey and spiritual progression.", cover:"🚗", category:"wisdom", pdf:"#", content:"<h2>Introduction</h2><p>Life is often compared to a journey...</p>" },
-            { id:2, title:"RACE TRACKS", author:"RotorFiles Editors", desc:"Apply the laws of racing to win at life.", cover:"🏁", category:"self-help", pdf:"#", content:"<h2>Monza Principle</h2><p>Speed with control...</p>" },
-            { id:3, title:"HEATHENICAL LOVE", author:"RotorFiles Editors", desc:"Breaking free from disbelief into transformative love.", cover:"💪", category:"love", pdf:"#", content:"<h2>True Love</h2><p>Love as a transformative force...</p>" },
-            { id:4, title:"Think and Grow Rich", author:"Napoleon Hill", desc:"13 steps to riches and mind power.", cover:"💰", category:"money", pdf:"#", content:"<h2>The Power of Desire</h2><p>Whatever the mind can conceive and believe, it can achieve.</p>" },
-            { id:5, title:"The 48 Laws of Power", author:"Robert Greene", desc:"Master power dynamics and human behavior.", cover:"👑", category:"power", pdf:"#", content:"<h2>Law 1: Never Outshine the Master</h2><p>Always make those above you feel superior.</p>" },
-            { id:6, title:"Atomic Habits", author:"James Clear", desc:"Tiny changes, remarkable results.", cover:"⚡", category:"self-help", pdf:"#", content:"<h2>The 1% Rule</h2><p>Small habits compound into extraordinary results.</p>" }
-        ];
+    // Default books (permanent - saved in code)
+let defaultBooks = [
+    { id:1, title:"Your Life as a Car But Meant to Fly", author:"RotorFiles Editors", desc:"A profound exploration of life's journey and spiritual progression.", cover:"🚗", category:"wisdom", pdf:"#", content:"<h2>Introduction</h2><p>Life is often compared to a journey...</p>" },
+    { id:2, title:"RACE TRACKS", author:"RotorFiles Editors", desc:"Apply the laws of racing to win at life.", cover:"🏁", category:"self-help", pdf:"#", content:"<h2>Monza Principle</h2><p>Speed with control...</p>" },
+    { id:3, title:"HEATHENICAL LOVE", author:"RotorFiles Editors", desc:"Breaking free from disbelief into transformative love.", cover:"💪", category:"love", pdf:"#", content:"<h2>True Love</h2><p>Love as a transformative force...</p>" },
+    { id:4, title:"Think and Grow Rich", author:"Napoleon Hill", desc:"13 steps to riches and mind power.", cover:"💰", category:"money", pdf:"#", content:"<h2>The Power of Desire</h2><p>Whatever the mind can conceive and believe, it can achieve.</p>" },
+    { id:5, title:"The 48 Laws of Power", author:"Robert Greene", desc:"Master power dynamics and human behavior.", cover:"👑", category:"power", pdf:"#", content:"<h2>Law 1: Never Outshine the Master</h2><p>Always make those above you feel superior.</p>" },
+    { id:6, title:"Atomic Habits", author:"James Clear", desc:"Tiny changes, remarkable results.", cover:"⚡", category:"self-help", pdf:"#", content:"<h2>The 1% Rule</h2><p>Small habits compound into extraordinary results.</p>" },
+    
+    // BOOK 7: Alpha Male Strategies
+    { id:7, title:"Alpha Male Strategies", author:"AMS", desc:"Teaching guys dating strategies in the social media age. Covers self-improvement, game, and the four male strategies.", cover:"🦁", category:"self-help", pdf:"https://drive.google.com/uc?export=download&id=1DBBu7MzdtITemqRIdU_X0QkJEuG3o8FY", content:"<h2>About This Book</h2><p>Alpha Male Strategies - Teaching guys dating strategies in the social media age.</p><h2>Table of Contents</h2><ul><li>Social Media Dating Age</li><li>Feminism</li><li>Blue Pill / Purple Pill / Red Pill</li><li>Self Improvement & Game</li><li>The Four Male Strategies</li></ul><p><strong>Download the full book using the PDF link above.</strong></p>" },
+    
+    // BOOK 8: The Way of the Superior Man
+    { id:8, title:"The Way of the Superior Man", author:"David Deida", desc:"A spiritual guide for men to discover their true depth, unleash their creative power, and live a life of purpose, passion, and freedom.", cover:"🔥", category:"wisdom", pdf:"#", content:"<h2>About The Way of the Superior Man</h2><p>By David Deida - A guide to masculine spirituality and authentic living.</p><h2>Key Topics</h2><ul><li>Discovering your deep purpose</li><li>Masculine and feminine dynamics</li><li>Living with authentic freedom</li><li>Sexual and spiritual integration</li><li>Overcoming fear and resistance</li></ul><p><em>Full book content available through the PDF link.</em></p>" },
+    
+    // BOOK 9: [Third Book - You tell me the title]
+    { id:9, title:"[BOOK TITLE]", author:"[AUTHOR NAME]", desc:"[DESCRIPTION]", cover:"📖", category:"self-help", pdf:"https://drive.google.com/uc?export=download&id=1cITk7jP54XPbfTzW-hngQgCansz0BL8s", content:"<h2>[Book Title]</h2><p>[Content description]</p>" }
+];
         
         // Load custom books from localStorage
         let customBooks = JSON.parse(localStorage.getItem("rotorfiles_custom_books")) || [];
